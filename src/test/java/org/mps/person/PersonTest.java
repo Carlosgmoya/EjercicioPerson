@@ -12,13 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
  1. Person age < 0
  2. Person age > 116
  3. Person gender != Male || Female
- 4. Average age of the setup people is : [30, 35]
+ 4. Average age of the setup people is -> [30, 35]
+ 5. Average age of an empty list is -> ???
 
 
 
  */
 class PersonTest {
     Person p1, p2, p3, p4;
+    List<Person> list;
 
     @BeforeEach
     void setup(){
@@ -26,6 +28,7 @@ class PersonTest {
         p2 = new Person("Carlos", 40 , "Male");
         p3 = new Person("Maria", 30, "Female");
         p4 = new Person("Ana", 40, "Female");
+        list = new ArrayList<>();
     }
 
     @Test
@@ -44,7 +47,6 @@ class PersonTest {
 
     @Test
     void AverageAgeOf4People(){
-        List<Person> list = new ArrayList<>();
         list.add(p1);
         list.add(p2);
         list.add(p3);
@@ -52,6 +54,30 @@ class PersonTest {
 
         double[] obtainedValue = p1.averageAgePerGender(list);
         double[] expectedValue = {30, 35};
+        assertArrayEquals(expectedValue, obtainedValue);
+    }
+
+    @Test
+    void AverageAgeOfAnEmptyList(){
+        assertThrows(EmptyListException.class, () -> p1.averageAgePerGender(list));
+    }
+
+    @Test
+    void AverageAgeOf1MalePerson(){
+        list.add(p1);
+
+        double[] obtainedValue = p1.averageAgePerGender(list);
+        double[] expectedValue = {p1.age(), 0};
+        assertArrayEquals(expectedValue, obtainedValue);
+    }
+
+    @Test
+    void AverageAgeOfOnlyMalePeople(){
+        list.add(p1);
+        list.add(p2);
+
+        double[] obtainedValue = p1.averageAgePerGender(list);
+        double[] expectedValue = {30, 0};
         assertArrayEquals(expectedValue, obtainedValue);
     }
 

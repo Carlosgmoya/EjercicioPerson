@@ -53,7 +53,10 @@ public class Person {
      */
 
     public double[] averageAgePerGender(List<Person> persons){
-        double avgMale, avgFemale;
+        if (persons.size() == 0){
+            throw new EmptyListException("The list of persons is empty");
+        }
+        double avgMale = 0.0, avgFemale = 0.0;
         int iMale = 0, iFemale = 0;
         int maleSum = 0, femaleSum = 0;
         double[] res = new double[2];
@@ -68,8 +71,12 @@ public class Person {
             }
         }
 
-        avgMale = (double) maleSum/iMale;
-        avgFemale = (double) femaleSum/iFemale;
+        if(iMale > 0) {
+            avgMale = (double) maleSum/iMale;
+        }
+        if(iFemale > 0){
+            avgFemale = (double) femaleSum/iFemale;
+        }
 
         res[0] = avgMale;
         res[1] = avgFemale;
