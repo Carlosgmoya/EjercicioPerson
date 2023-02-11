@@ -23,7 +23,16 @@ public class Person {
 
     public Person(String name, int age, String gender){
         this.name = name;
+        if (age < 0) {
+            throw new ImpossibleAgeException("Age cant be a negative number");
+        } else if(age > 116) {
+            throw new ImpossibleAgeException("Age cant be higher than 116 for a person");
+        }
         this.age = age;
+
+        if (!gender.equals("Male") && !gender.equals("Female")){
+            throw new TwoGendersException("A person can only be Male or Female");
+        }
         this.gender = gender;
     }
 
@@ -46,7 +55,7 @@ public class Person {
     public double[] averageAgePerGender(List<Person> persons){
         double avgMale, avgFemale;
         int iMale = 0, iFemale = 0;
-        double maleSum = 0, femaleSum = 0;
+        int maleSum = 0, femaleSum = 0;
         double[] res = new double[2];
 
         for(Person p : persons){
@@ -59,8 +68,8 @@ public class Person {
             }
         }
 
-        avgMale = maleSum/iMale;
-        avgFemale = femaleSum/iFemale;
+        avgMale = (double) maleSum/iMale;
+        avgFemale = (double) femaleSum/iFemale;
 
         res[0] = avgMale;
         res[1] = avgFemale;
