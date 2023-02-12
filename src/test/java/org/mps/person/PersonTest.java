@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
  3. Person gender != Male || Female
  4. Average age of the setup people is -> [30, 35]
  5. Average age of an empty list is -> ???
-
-
-
+ 6. Average age of 1 person -> his age in his gender place
+ 7. Average age of 2 first people in setup(both Male) -> [30, 0]
+ 8. p1 names is -> "Pepe"
  */
 class PersonTest {
     Person p1, p2, p3, p4;
@@ -79,6 +79,14 @@ class PersonTest {
         double[] obtainedValue = p1.averageAgePerGender(list);
         double[] expectedValue = {30, 0};
         assertArrayEquals(expectedValue, obtainedValue);
+    }
+
+    @Test
+    void NameOfAPersonIsHisName(){
+        String obtainedValue = p1.name();
+        String expectedValue = "Pepe";
+
+        assertEquals(obtainedValue, expectedValue);
     }
 
 }
